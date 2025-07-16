@@ -2,22 +2,22 @@ import sys
 
 import click
 
-from bloodhound_cli.api.from_config import api
-from bloodhound_cli.logger import log
+from bhcli.api.from_config import api
+from bhcli.logger import log
 from .paramtypes import DomainType
 
 
 @click.command()
-@click.option("--domain", "-d", type=DomainType(), help="Show only users of specific domain.")
-@click.option("--enabled/--disabled", default=None, help="Show only enabled/disabled users.")
-@click.option("--owned/--not-owned", default=None, help="Show only users (not) marked as owned.")
+@click.option("--domain", "-d", type=DomainType(), help="Show only computers of specific domain.")
+@click.option("--enabled/--disabled", default=None, help="Show only enabled/disabled computers.")
+@click.option("--owned/--not-owned", default=None, help="Show only computers (not) marked as owned.")
 @click.option("--sam", is_flag=True, help="Show SAM account name.")
-@click.option("--displayname", is_flag=True, help="Show display name.")
+@click.option("--pre-win2k-pw", is_flag=True, help="Show pre-win2k password candidate.")
 @click.option("--description", is_flag=True, help="Show description.")
 @click.option("--sep", "-s", metavar="SEP", default="\t", help="Separator between fields (default: tab).")
 @click.option("--skip-empty", is_flag=True, help="Skip entry when one field is empty.")
-def users(domain, enabled, owned, sam, displayname, description, sep, skip_empty):
-    """Get lists of users."""
+def computers(domain, enabled, owned, sam, pre_win2k_pw, description, sep, skip_empty):
+    """Get lists of computers."""
 
     domainsid = None
     if domain:
@@ -27,11 +27,11 @@ def users(domain, enabled, owned, sam, displayname, description, sep, skip_empty
             log.error("Unknown domain %s.", domain)
             sys.exit(1)
 
-    result = api.users(domainsid=domainsid, enabled=enabled)
-    result = sorted(result, key=lambda u: (u["properties"].get("domain", "").upper(), (u["properties"].get("name", ""))))
+    result = api.computers(domainsid=domainsid, enabled=enabled)
+    result = sorted(result, key=lambda c: (c["properties"].get("domain", "").upper(), (c["properties"].get("name", ""))))
 
-    for user in result:
-        props = user["properties"]
+    for computer in result:
+        props = computer["properties"]
         if owned is not None:
             is_owned = "owned" in props.get("system_tags", "").split()
             if owned != is_owned:
@@ -47,9 +47,9 @@ def users(domain, enabled, owned, sam, displayname, description, sep, skip_empty
                 if skip_empty:
                     continue
                 out.append("")
-        if displayname:
+        if pre_win2k_pw:
             try:
-                out.append(props["displayname"])
+                out.append(props["samaccountname"].strip().rstrip("$").lower()[:14])
             except KeyError:
                 if skip_empty:
                     continue

@@ -1,7 +1,7 @@
 import configparser
 import os
 
-from bloodhound_cli.logger import log
+from bhcli.logger import log
 
 
 class Config:

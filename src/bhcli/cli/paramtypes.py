@@ -1,8 +1,8 @@
 from click import ParamType
 from click.shell_completion import CompletionItem
 
-from bloodhound_cli.api.exceptions import ApiException
-from bloodhound_cli.api.from_config import api
+from bhcli.api.exceptions import ApiException
+from bhcli.api.from_config import api
 
 
 class AssetGroupTagType(ParamType):

@@ -3,9 +3,9 @@ import sys
 
 import click
 
-from bloodhound_cli.api.exceptions import ApiException
-from bloodhound_cli.api.from_config import api
-from bloodhound_cli.logger import log
+from bhcli.api.exceptions import ApiException
+from bhcli.api.from_config import api
+from bhcli.logger import log
 
 
 @click.command()

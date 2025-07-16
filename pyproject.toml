@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "bloodhound-cli"
+name = "bhcli"
 dynamic = ["version"]
 description = "CLI tool to interact with the BloodHound CE API"
 readme = "README.md"
@@ -23,12 +23,12 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/exploide/bloodhound-cli#readme"
-Issues = "https://github.com/exploide/bloodhound-cli/issues"
-Source = "https://github.com/exploide/bloodhound-cli"
+Documentation = "https://github.com/exploide/bhcli#readme"
+Issues = "https://github.com/exploide/bhcli/issues"
+Source = "https://github.com/exploide/bhcli"
 
 [project.scripts]
-bhcli = "bloodhound_cli.__main__:main"
+bhcli = "bhcli.__main__:main"
 
 [tool.hatch.version]
-path = "src/bloodhound_cli/__about__.py"
+path = "src/bhcli/__about__.py"

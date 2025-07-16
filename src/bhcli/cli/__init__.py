@@ -1,7 +1,7 @@
 import click
 
-from bloodhound_cli.__about__ import __version__
-from bloodhound_cli import logger
+from bhcli.__about__ import __version__
+from bhcli import logger
 from .audit import audit
 from .auth import auth
 from .computers import computers
@@ -19,21 +19,21 @@ from .users import users
 @click.group(context_settings={"help_option_names": ["-h", "--help"]})
 @click.option("--debug", is_flag=True, help="Enable debug output.")
 @click.version_option(version=__version__, prog_name="bhcli")
-def bloodhound_cli(debug=False):
+def bhcli(debug=False):
     """CLI tool to interact with the BloodHound CE API"""
 
     logger.set_loglevel(debug)
 
 
-bloodhound_cli.add_command(audit)
-bloodhound_cli.add_command(auth)
-bloodhound_cli.add_command(computers)
-bloodhound_cli.add_command(cypher)
-bloodhound_cli.add_command(domains)
-bloodhound_cli.add_command(groups)
-bloodhound_cli.add_command(mark)
-bloodhound_cli.add_command(members)
-bloodhound_cli.add_command(queries)
-bloodhound_cli.add_command(stats)
-bloodhound_cli.add_command(upload)
-bloodhound_cli.add_command(users)
+bhcli.add_command(audit)
+bhcli.add_command(auth)
+bhcli.add_command(computers)
+bhcli.add_command(cypher)
+bhcli.add_command(domains)
+bhcli.add_command(groups)
+bhcli.add_command(mark)
+bhcli.add_command(members)
+bhcli.add_command(queries)
+bhcli.add_command(stats)
+bhcli.add_command(upload)
+bhcli.add_command(users)

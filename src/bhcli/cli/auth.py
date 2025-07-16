@@ -1,8 +1,8 @@
 import click
 
-from bloodhound_cli.api import Api
-from bloodhound_cli.config import config
-from bloodhound_cli.logger import log
+from bhcli.api import Api
+from bhcli.config import config
+from bhcli.logger import log
 
 
 @click.command()

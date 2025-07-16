@@ -3,8 +3,8 @@ import time
 
 import click
 
-from bloodhound_cli.api.from_config import api
-from bloodhound_cli.logger import log
+from bhcli.api.from_config import api
+from bhcli.logger import log
 
 
 @click.command()

@@ -1,20 +1,27 @@
-# BloodHound CLI
+# bhcli - CLI client for the BloodHound CE API
 
-A CLI tool to interact with the [BloodHound CE](https://github.com/SpecterOps/BloodHound) API.
+`bhcli` is an unofficial CLI client to interact with the BloodHound CE API.
 
-BloodHound by SpecterOps is *the* tool to work with Active Directory attack paths, taking advantage of modeling security-relevant relationships in a graph with nodes and edges.
+[BloodHound by SpecterOps](https://github.com/SpecterOps/BloodHound) is *the* tool to work with Active Directory attack paths, taking advantage of modeling security-relevant relationships in a graph with nodes and edges.
 
 Once filled with data, the BloodHound database is also a great source of information useful beyond the BloodHound GUI.
-A lot of information you typically dump from LDAP is already available in BloodHound.
 `bhcli` makes this information accessible on the commandline.
-Retrieve lists of user names for further processing, grep in the description field, or even run custom Cypher queries.
 
-`bhcli` can also mark a bunch of objects as owned, import/export your custom queries and might perform an audit to search for interesting permissions.
+- fetch data from BloodHound instead of repetitively querying LDAP to improve stealthiness
+- generate lists of users and computers for further processing
+- grep in their description fields or other attributes
+- resolve nested group memberships into flat lists
+- mark a bunch of objects as owned (or other asset groups)
+- import/export your custom queries
+- perform a (rudimentary) audit to search for potential security issues
+- run custom Cypher queries and process the result as JSON
+
 Check the help message below for all features.
 
 > [!IMPORTANT]
-> Do **not** confuse it with [bloodhound-cli by SpecterOps](https://github.com/SpecterOps/bloodhound-cli) which serves another purpose and is used to start a containerized BloodHound CE instance and configure it.
-> Unfortunately, both tools share the project name bloodhound-cli, but SpecterOps' installs as `bloodhound-cli` while my project here installs as `bhcli`.
+> This project was formerly named bloodhound-cli.
+> It has been renamed to bhcli to avoid confusion with the official [bloodhound-cli by SpecterOps](https://github.com/SpecterOps/bloodhound-cli), which serves another purpose.
+> Both tools shared the project name bloodhound-cli, but SpecterOps' installs as `bloodhound-cli` while my project here has always installed as `bhcli`.
 
 
 ## Installation
@@ -23,8 +30,8 @@ This tool is not published on PyPi yet, but as with any Python tool, just fetch 
 For example using a virtualenv and `pip`:
 
 ```console
-$ git clone https://github.com/exploide/bloodhound-cli.git
-$ cd bloodhound-cli
+$ git clone https://github.com/exploide/bhcli.git
+$ cd bhcli
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install .
@@ -33,8 +40,8 @@ $ pip install .
 Or using `pipx` which handles the virtualenv automatically:
 
 ```console
-$ git clone https://github.com/exploide/bloodhound-cli.git
-$ cd bloodhound-cli
+$ git clone https://github.com/exploide/bhcli.git
+$ cd bhcli
 $ pipx install .
 ```
 

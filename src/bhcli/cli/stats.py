@@ -3,9 +3,9 @@ import sys
 import click
 import prettytable
 
-from bloodhound_cli.api.from_config import api
-from bloodhound_cli.constants import RID
-from bloodhound_cli.logger import log
+from bhcli.api.from_config import api
+from bhcli.constants import RID
+from bhcli.logger import log
 from .paramtypes import DomainType
 
 

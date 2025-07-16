@@ -1,4 +1,4 @@
-from bloodhound_cli.config import config
+from bhcli.config import config
 from . import Api
 
 # create an Api instance with settings obtained from the configuration file

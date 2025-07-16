@@ -8,8 +8,8 @@ import urllib
 
 import requests
 
-from bloodhound_cli import cypher
-from bloodhound_cli.logger import log
+from bhcli import cypher
+from bhcli.logger import log
 from .exceptions import ApiException
 
 
