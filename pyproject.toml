@@ -22,6 +22,11 @@ dependencies = [
   "requests",
 ]
 
+[project.optional-dependencies]
+dev = [
+  "pytest",
+]
+
 [project.urls]
 Documentation = "https://github.com/exploide/bhcli#readme"
 Issues = "https://github.com/exploide/bhcli/issues"
