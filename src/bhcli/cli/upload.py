@@ -1,10 +1,19 @@
 import sys
 import time
+from enum import IntEnum
 
 import click
 
 from bhcli.api.from_config import api
 from bhcli.logger import log
+
+
+class UploadStatus(IntEnum):
+    """Status codes for upload jobs."""
+
+    Complete = 2
+    Ingesting = 6
+    Analyzing = 7
 
 
 @click.command()
@@ -38,9 +47,11 @@ def upload(files):
     while True:
         time.sleep(5)
         result = api.upload_status(upload_id)
-        if result[0]["status"] == 2:
+        if result[0]["status"] in [UploadStatus.Ingesting, UploadStatus.Analyzing]:
+            continue
+        if result[0]["status"] == UploadStatus.Complete:
             log.info("Ingestion completed, the data is now available.")
             sys.exit(0)
-        if result[0]["status"] == 5:
-            log.error("Ingestion failed: %s", result[0]["status_message"])
+        else:
+            log.error("%s", result[0]["status_message"])
             sys.exit(1)
