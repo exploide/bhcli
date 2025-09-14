@@ -10,7 +10,8 @@ from bhcli.logger import log
 from .paramtypes import DomainType
 
 
-boring_relations = [
+ignored_relations = [
+    "ClaimSpecialIdentity",
     "Enroll",
     "LocalToComputer",
     "MemberOf",
@@ -36,11 +37,11 @@ def audit(domain):
         print()
 
         print("[*] Interesting privileges for domain users or computers")
-        query = f"""MATCH (b:Group)-[:MemberOf*0..]->(g:Group)
+        query = f"""MATCH (b:Group)-[:MemberOf|ClaimSpecialIdentity*0..]->(g:Group)
                 {cypher.where("b", comparison_operator="IN", objectid=[f"{domsid}-{RID.DOMAIN_USERS}", f"{domsid}-{RID.DOMAIN_COMPUTERS}"])}
                 WITH g
                 MATCH p=(g)-[r]->(o)
-                WHERE NOT type(r) IN {cypher.escape(boring_relations)}
+                WHERE NOT type(r) IN {cypher.escape(ignored_relations)}
                 RETURN p
                 """
         result = api.cypher(query)
@@ -61,11 +62,11 @@ def audit(domain):
         print()
 
         print("[*] Interesting privileges for guests")
-        query = f"""MATCH (b:User)-[:MemberOf*0..]->(g)
+        query = f"""MATCH (b:User)-[:MemberOf|ClaimSpecialIdentity*0..]->(g)
                 {cypher.where("b", objectid=f"{domsid}-{RID.GUEST}")}
                 WITH g
                 MATCH p=(g)-[r]->(o)
-                WHERE NOT type(r) IN {cypher.escape(boring_relations)}
+                WHERE NOT type(r) IN {cypher.escape(ignored_relations)}
                 RETURN p
                 """
         result = api.cypher(query)
