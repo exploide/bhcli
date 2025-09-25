@@ -240,8 +240,8 @@ class Api:
         log.debug("Prepared Cypher query: %s", query)
         endpoint = "/api/v2/graphs/cypher"
         data = {
-            "include_properties": include_properties,
             "query": query,
+            "include_properties": include_properties,
         }
         try:
             return self._send("POST", endpoint, data)
