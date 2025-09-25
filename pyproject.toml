@@ -17,7 +17,7 @@ classifiers = [
   "Programming Language :: Python",
 ]
 dependencies = [
-  "click",
+  "click<8.3.0",
   "prettytable",
   "requests",
 ]
