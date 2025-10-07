@@ -143,10 +143,10 @@ def audit(domain):
             print(f"{n[1]} ({n[0]})")
         print()
 
-        print("[*] Accounts which do not require password for login (enabled, password can be changed)")
+        print("[*] Accounts which have PasswordNotRequired set (enabled)")
         query = f"""
                 MATCH (u:User) 
-                {cypher.where("u", domainsid=domsid, passwordnotreqd=True, enabled=True, passwordcantchange=False)} 
+                {cypher.where("u", domainsid=domsid, passwordnotreqd=True, enabled=True)} 
                 RETURN u
                 """
         result = api.cypher(query)["nodes"].values()
