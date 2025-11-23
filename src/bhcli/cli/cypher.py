@@ -7,7 +7,7 @@ from bhcli.api.from_config import api
 
 @click.command()
 @click.argument("query")
-@click.option("--no-properties", "properties", flag_value=False, default=True, help="Don't return all node properties.")
+@click.option("--properties/--no-properties", default=True, help="Return (no) node properties (default: yes).")
 def cypher(query, properties):
     """Run a raw Cypher query and print the response as JSON."""
 
