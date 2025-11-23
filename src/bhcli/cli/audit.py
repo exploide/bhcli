@@ -2,6 +2,7 @@ import sys
 
 import click
 import prettytable
+import datetime
 
 from bhcli import cypher
 from bhcli.api.from_config import api
@@ -141,5 +142,34 @@ def audit(domain):
         for n in result:
             print(f"{n[1]} ({n[0]})")
         print()
+
+        print("[*] Accounts which have PasswordNotRequired set (enabled)")
+        query = f"""
+                MATCH (u:User) 
+                {cypher.where("u", domainsid=domsid, passwordnotreqd=True, enabled=True)} 
+                RETURN u
+                """
+        result = api.cypher(query)["nodes"].values()
+        count = len(result)
+        print(f"    {count} accounts found")
+        
+        relations = set()
+        for n in result:
+            is_tier0 = False
+            if n["properties"].get("system_tags") != None and "admin_tier_0" in n["properties"].get("system_tags"):
+                is_tier0 = True
+            lastLogonDate = datetime.datetime.fromtimestamp(n["properties"]["lastlogon"]).strftime('%Y-%m-%d %H:%M:%S')
+            pwLastSetDate = datetime.datetime.fromtimestamp(n["properties"]["pwdlastset"]).strftime('%Y-%m-%d %H:%M:%S')
+            relations.add((n["properties"]["name"], n["kind"], pwLastSetDate, lastLogonDate, is_tier0)) 
+        if count > 0:
+            table = prettytable.PrettyTable()
+            table.set_style(prettytable.PLAIN_COLUMNS)
+            table.align = "l"
+            table.field_names = ["Name", "Type", "PasswordLastSet", "LastLogin", "Tier-0"]
+            table.add_rows(sorted(relations))
+            print(table)
+        print()
+
+
 
         print()
