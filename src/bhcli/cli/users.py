@@ -33,8 +33,7 @@ def users(domain, enabled, owned, sam, displayname, description, sep, skip_empty
     for user in result:
         props = user["properties"]
         if owned is not None:
-            is_owned = "owned" in props.get("system_tags", "").split()
-            if owned != is_owned:
+            if owned != user["isOwnedObject"]:
                 continue
         try:
             out = [props["name"]]

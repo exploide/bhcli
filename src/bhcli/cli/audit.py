@@ -91,7 +91,7 @@ def audit(domain):
         result = [
             n
             for n in result
-            if "admin_tier_0" in n["properties"].get("system_tags", "")
+            if n["isTierZero"]
             and not n["properties"].get("msa", False)
             and not n["properties"].get("gmsa", False)
         ]

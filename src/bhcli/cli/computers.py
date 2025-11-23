@@ -33,8 +33,7 @@ def computers(domain, enabled, owned, sam, pre_win2k_pw, description, sep, skip_
     for computer in result:
         props = computer["properties"]
         if owned is not None:
-            is_owned = "owned" in props.get("system_tags", "").split()
-            if owned != is_owned:
+            if owned != computer["isOwnedObject"]:
                 continue
         try:
             out = [props["name"]]
