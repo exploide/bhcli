@@ -21,7 +21,7 @@ def test_queries_import():
             json.dump(test_queries, f)
         proc = subprocess.run(["bhcli", "queries", file], capture_output=True)
     assert proc.returncode == 0
-    assert b"Imported 1 custom queries" in proc.stderr
+    assert b"imported 1 queries" in proc.stderr
     assert b"ERROR" not in proc.stderr
 
 

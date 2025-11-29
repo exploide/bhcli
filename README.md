@@ -250,12 +250,12 @@ INFO: Marked 6 objects as owned.
 ### queries
 
 The `queries` subcommand allows to import and export custom Cypher queries.
-The import file must either be in the format that the `--save` option produces or in the legacy Bloodhound's `customqueries.json` format.
+An import file must either be in a format that `--save` produces or in the legacy Bloodhound's `customqueries.json` format.
 Note that not everything from the latter might be compatible.
 
 ```console
 $ bhcli queries my-bloodhound-queries.json
-INFO: Imported 12 custom queries.
+INFO: my-bloodhound-queries.json: imported 12 queries
 ```
 
 

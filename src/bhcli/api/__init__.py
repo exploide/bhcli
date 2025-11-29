@@ -91,9 +91,9 @@ class Api:
                 return self._send(method, endpoint, data, content_type)
             raise ApiException("Received unexpected response from server. Run 'bhcli --debug ...' for more information.", result)
 
-        if result.content:
+        if result.headers.get("Content-Type") == "application/json":
             return result.json()["data"]
-        return {}
+        return result.content
 
 
     def login(self, username, password):
@@ -222,6 +222,21 @@ class Api:
             "description": description,
         }
         return self._send("POST", endpoint, data)
+
+
+    def import_saved_queries(self, data, content_type):
+        """Import custom queries from JSON or ZIP."""
+
+        endpoint = "/api/v2/saved-queries/import"
+        return self._send("POST", endpoint, data, content_type)
+
+
+    def export_saved_queries(self, scope="all"):
+        """Export saved custom queries to ZIP."""
+
+        endpoint = "/api/v2/saved-queries/export"
+        endpoint += f"?scope={urllib.parse.quote_plus(scope)}"
+        return self._send("GET", endpoint)
 
 
     def domains(self, collected=None):
