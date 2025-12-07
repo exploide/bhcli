@@ -166,6 +166,38 @@ class Api:
         return self._send("GET", endpoint)
 
 
+    def clear_database(self, all_data=False, graph_data=None, ad_graph_data=None, azure_graph_data=None, sourceless_graph_data=None, asset_group_selectors=None, file_ingest_history=None, data_quality_history=None):
+        """Delete data from the database."""
+
+        endpoint = "/api/v2/clear-database"
+        if all_data:
+            graph_data = graph_data is not False
+            asset_group_selectors = asset_group_selectors is not False
+            file_ingest_history = file_ingest_history is not False
+            data_quality_history = data_quality_history is not False
+        if graph_data:
+            ad_graph_data = ad_graph_data is not False
+            azure_graph_data = azure_graph_data is not False
+            sourceless_graph_data = sourceless_graph_data is not False
+        delete_source_kinds = []
+        if ad_graph_data:
+            delete_source_kinds.append(1)
+        if azure_graph_data:
+            delete_source_kinds.append(2)
+        if sourceless_graph_data:
+            delete_source_kinds.append(0)
+        delete_asset_group_selectors = []
+        if asset_group_selectors:
+            delete_asset_group_selectors = [1, 2]
+        data = {
+            "deleteSourceKinds": delete_source_kinds,
+            "deleteAssetGroupSelectors": delete_asset_group_selectors,
+            "deleteFileIngestHistory": file_ingest_history is True,
+            "deleteDataQualityHistory": data_quality_history is True,
+        }
+        return self._send("POST", endpoint, data)
+
+
     def get_asset_groups(self, tag=None):
         """Get asset groups."""
 

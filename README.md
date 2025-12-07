@@ -70,6 +70,7 @@ Options:
 Commands:
   audit      Audit domains for potential security issues.
   auth       Authenticate to the server and configure an API token.
+  clear-db   Delete data from the database.
   computers  Get lists of computers.
   cypher     Run a raw Cypher query and print the response as JSON.
   domains    Get lists of domains.
@@ -268,4 +269,15 @@ It outputs JSON data which can be further processed, e.g. with `jq`.
 $ bhcli cypher 'MATCH (c:Computer) RETURN c' | jq -c '.nodes[].properties | [.name, .operatingsystem]'
 ["WEB06.DEV.CONTOSO.COM","WINDOWS SERVER 2019 STANDARD"]
 ["DC02.DEV.CONTOSO.COM","WINDOWS SERVER 2022 DATACENTER"]
+```
+
+
+### clear-db
+
+The `clear-db` subcommand deletes data from the BloodHound database.
+Different data can be deleted or explicitly kept.
+
+```console
+$ bhcli clear-db --all --keep-file-ingest-history
+INFO: Data deletion started. This may take some time to complete.
 ```

@@ -4,6 +4,7 @@ from bhcli.__about__ import __version__
 from bhcli import logger
 from .audit import audit
 from .auth import auth
+from .clear_db import clear_db
 from .computers import computers
 from .cypher import cypher
 from .domains import domains
@@ -27,6 +28,7 @@ def bhcli(debug=False):
 
 bhcli.add_command(audit)
 bhcli.add_command(auth)
+bhcli.add_command(clear_db)
 bhcli.add_command(computers)
 bhcli.add_command(cypher)
 bhcli.add_command(domains)
