@@ -13,6 +13,7 @@ from .mark import mark
 from .members import members
 from .queries import queries
 from .stats import stats
+from .status import status
 from .upload import upload
 from .users import users
 
@@ -37,5 +38,6 @@ bhcli.add_command(mark)
 bhcli.add_command(members)
 bhcli.add_command(queries)
 bhcli.add_command(stats)
+bhcli.add_command(status)
 bhcli.add_command(upload)
 bhcli.add_command(users)

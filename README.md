@@ -79,6 +79,7 @@ Commands:
   members    Get lists of group members.
   queries    Import and export custom queries.
   stats      Get statistics on domains.
+  status     Retrieve internal status of the BloodHound server.
   upload     Upload and ingest files from the BloodHound collector.
   users      Get lists of users.
 ```
@@ -269,6 +270,23 @@ It outputs JSON data which can be further processed, e.g. with `jq`.
 $ bhcli cypher 'MATCH (c:Computer) RETURN c' | jq -c '.nodes[].properties | [.name, .operatingsystem]'
 ["WEB06.DEV.CONTOSO.COM","WINDOWS SERVER 2019 STANDARD"]
 ["DC02.DEV.CONTOSO.COM","WINDOWS SERVER 2022 DATACENTER"]
+```
+
+
+### status
+
+The `status` subcommand allows to query certain internal properties of the BloodHound server.
+
+```console
+bhcli status api-version
+{
+    "API": {
+        "current_version": "v2",
+        "deprecated_version": "none"
+    },
+    "server_version": "v8.4.1",
+    "product_edition": "community"
+}
 ```
 
 

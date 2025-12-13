@@ -127,6 +127,13 @@ class Api:
         return self._send("POST", endpoint, data)
 
 
+    def api_version(self):
+        """Return the API version of the configured BloodHound CE instance."""
+
+        endpoint = "/api/version"
+        return self._send("GET", endpoint)
+
+
     def upload_status(self, file_upload_id=None):
         """Return status of file upload jobs."""
 
@@ -155,6 +162,13 @@ class Api:
 
         endpoint = f"/api/v2/file-upload/{file_upload_id}/end"
         return self._send("POST", endpoint)
+
+
+    def datapipe_status(self):
+        """Return status of the datapipe."""
+
+        endpoint = "/api/v2/datapipe/status"
+        return self._send("GET", endpoint)
 
 
     def search(self, name, kind=None):
