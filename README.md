@@ -278,7 +278,7 @@ $ bhcli cypher 'MATCH (c:Computer) RETURN c' | jq -c '.nodes[].properties | [.na
 The `status` subcommand allows to query certain internal properties of the BloodHound server.
 
 ```console
-bhcli status api-version
+$ bhcli status api-version
 {
     "API": {
         "current_version": "v2",
