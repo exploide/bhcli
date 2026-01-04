@@ -75,7 +75,7 @@ Commands:
   cypher     Run a raw Cypher query and print the response as JSON.
   domains    Get lists of domains.
   groups     Get lists of groups.
-  mark       Mark objects as belonging to an asset group.
+  mark       Mark objects with an asset group tag (Owned, Tier Zero).
   members    Get lists of group members.
   queries    Import and export custom queries.
   stats      Get statistics on domains.
@@ -240,12 +240,12 @@ APPSRV01.CONTOSO.COM (WINDOWS SERVER 2012 R2 DATACENTER)
 
 ### mark
 
-The `mark` subcommand allows to mark a bunch of user and computer objects as belonging to an asset group.
-BloodHound comes with the asset groups `owned` and `admin_tier_0` by default, but custom groups can be created, too.
+The `mark` subcommand allows to mark a bunch of user and computer objects with an asset group tag.
+BloodHound comes with the asset group tags `Owned` and `Tier Zero` by default.
 
 ```console
-$ bhcli mark owned --file successful_password_spraying.txt
-INFO: Marked 6 objects as owned.
+$ bhcli mark Owned --file successful_password_spraying.txt
+INFO: Marked 6 objects as Owned.
 ```
 
 

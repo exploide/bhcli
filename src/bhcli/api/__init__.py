@@ -249,6 +249,41 @@ class Api:
         return self._send("PUT", endpoint, data)
 
 
+    def get_asset_group_tags(self, name=None):
+        """Get asset group tags."""
+
+        endpoint = "/api/v2/asset-group-tags"
+        if name is not None:
+            endpoint += f"?name=eq:{urllib.parse.quote_plus(name)}"
+        return self._send("GET", endpoint)["tags"]
+
+
+    def get_asset_group_tag_members(self, asset_group_tag_id):
+        """Get asset group tag members."""
+
+        endpoint = f"/api/v2/asset-group-tags/{asset_group_tag_id}/members?limit=0"
+        return self._send("GET", endpoint)["members"]
+
+
+    def add_to_asset_group_tag(self, asset_group_tag_id, sids):
+        """Add one or more objects identified by their sid to an asset group tag."""
+
+        endpoint = f"/api/v2/asset-group-tags/{asset_group_tag_id}/selectors"
+        if isinstance(sids, str):
+            sids = [sids]
+        data = {
+            "name": f"via bhcli at {datetime.datetime.now()}",
+            "seeds": [
+                {
+                    "type": 1,
+                    "value": sid,
+                }
+                for sid in sids
+            ],
+        }
+        return self._send("POST", endpoint, data)
+
+
     def get_saved_queries(self, sort_by=None):
         """Get saved custom queries."""
 

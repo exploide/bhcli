@@ -6,22 +6,22 @@ from bhcli.api.from_config import api
 
 
 class AssetGroupTagType(ParamType):
-    """ParamType for an asset group tag."""
+    """ParamType for asset-group-tags."""
 
     name = "asset_group_tag"
 
     def shell_complete(self, ctx, param, incomplete):
         try:
-            asset_groups = [
-                ag
-                for ag in api.get_asset_groups()
-                if ag["tag"].startswith(incomplete)
+            asset_group_tags = [
+                agt["name"]
+                for agt in api.get_asset_group_tags()
+                if agt["name"].lower().startswith(incomplete.lower())
             ]
         except ApiException:
             return []
         return [
-            CompletionItem(ag["tag"], help=ag["name"])
-            for ag in sorted(asset_groups, key=lambda g: g["tag"])
+            CompletionItem(agt)
+            for agt in sorted(asset_group_tags)
         ]
 
 
