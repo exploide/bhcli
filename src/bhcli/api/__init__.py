@@ -74,7 +74,7 @@ class Api:
 
         log.debug("Sending %s request to API endpoint %s", method, endpoint)
         try:
-            result = requests.request(method=method, url=endpoint_url, headers=headers, data=data, timeout=(3.1, 60))
+            result = requests.request(method=method, url=endpoint_url, headers=headers, data=data, timeout=(3.1, 180))
         except requests.exceptions.ConnectionError as e:
             log.debug("Got error during connection attempt. Original error is: %s", e)
             raise ApiException(f"Could not connect to API server at '{self._url}'. Make sure BloodHound is running and accessible or run 'bhcli --debug ...' for more information.") from e
