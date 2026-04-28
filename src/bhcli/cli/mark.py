@@ -47,6 +47,8 @@ def mark(tag, objects, file):
         else:
             kind = "Computer"
         result = api.search(obj, kind)
+        if result == None:
+            continue
         result = [x for x in result if x["name"].upper() == obj.upper()]
         if len(result) < 1:
             log.warning("No %s object found with name: %s", kind, obj)
