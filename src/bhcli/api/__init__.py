@@ -177,7 +177,8 @@ class Api:
         endpoint = f"/api/v2/search?q={urllib.parse.quote_plus(name)}"
         if kind is not None:
             endpoint += f"&type={urllib.parse.quote_plus(kind)}"
-        return self._send("GET", endpoint)
+        result = self._send("GET", endpoint)
+        return result if result is not None else []
 
 
     def clear_database(self, all_data=False, graph_data=None, ad_graph_data=None, azure_graph_data=None, sourceless_graph_data=None, asset_group_selectors=None, file_ingest_history=None, data_quality_history=None):
