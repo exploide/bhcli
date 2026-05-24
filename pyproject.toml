@@ -18,7 +18,7 @@ classifiers = [
 ]
 dependencies = [
   "click",
-  "prettytable",
+  "prettytable>=2.5.0",
   "requests",
 ]
 
