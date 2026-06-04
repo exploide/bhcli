@@ -35,10 +35,9 @@ def upload(files):
         else:
             log.warning("File of unsupported type will be ignored: %s", file)
             continue
-        with open(file, "rb") as f:
-            content = f.read()
         log.info("Uploading file %s", file)
-        api.upload_file(upload_id, content, content_type)
+        with open(file, "rb") as f:
+            api.upload_file(upload_id, f, content_type)
 
     log.info("Ending file upload job...")
     api.end_upload(upload_id)

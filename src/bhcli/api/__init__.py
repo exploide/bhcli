@@ -2,6 +2,7 @@ import base64
 import datetime
 import hashlib
 import hmac
+import io
 import json
 import time
 import urllib
@@ -64,7 +65,12 @@ class Api:
             digester.update(datetime_formatted[:13].encode())
             digester = hmac.new(digester.digest(), None, hashlib.sha256)
             if data is not None:
-                digester.update(data)
+                if isinstance(data, io.BufferedIOBase):
+                    for chunk in iter(lambda: data.read(65536), b""):
+                        digester.update(chunk)
+                    data.seek(0)
+                else:
+                    digester.update(data)
             headers["Authorization"] = f"bhesignature {self._token_id}"
             headers["RequestDate"] = datetime_formatted
             headers["Signature"] = base64.b64encode(digester.digest())
