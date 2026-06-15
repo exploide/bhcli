@@ -66,6 +66,8 @@ class Api:
             digester = hmac.new(digester.digest(), None, hashlib.sha256)
             if data is not None:
                 if isinstance(data, io.BufferedIOBase):
+                    # Seek to the start *before hashing, so the first attempt and any retry are retry-safe
+                    data.seek(0)
                     for chunk in iter(lambda: data.read(65536), b""):
                         digester.update(chunk)
                     data.seek(0)
