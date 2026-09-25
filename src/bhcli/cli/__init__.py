@@ -8,6 +8,7 @@ from .clear_db import clear_db
 from .computers import computers
 from .cypher import cypher
 from .domains import domains
+from .opengraph import opengraph
 from .groups import groups
 from .mark import mark
 from .members import members
@@ -33,6 +34,7 @@ bhcli.add_command(clear_db)
 bhcli.add_command(computers)
 bhcli.add_command(cypher)
 bhcli.add_command(domains)
+bhcli.add_command(opengraph)
 bhcli.add_command(groups)
 bhcli.add_command(mark)
 bhcli.add_command(members)

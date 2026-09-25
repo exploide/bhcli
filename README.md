@@ -74,6 +74,7 @@ Commands:
   computers  Get lists of computers.
   cypher     Run a raw Cypher query and print the response as JSON.
   domains    Get lists of domains.
+  opengraph  Import OpenGraph extensions.
   groups     Get lists of groups.
   mark       Mark objects with an asset group tag (Owned, Tier Zero).
   members    Get lists of group members.
@@ -287,6 +288,15 @@ $ bhcli status api-version
     "server_version": "v8.4.1",
     "product_edition": "community"
 }
+```
+
+### opengraph
+
+The `opengraph` subcommand allows importing an OpenGraph schema JSON.
+
+```console
+$ bhcli opengraph ~/schema.json
+INFO: successfully imported /home/user/schema.json
 ```
 
 
