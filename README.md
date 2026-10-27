@@ -74,10 +74,10 @@ Commands:
   computers  Get lists of computers.
   cypher     Run a raw Cypher query and print the response as JSON.
   domains    Get lists of domains.
-  opengraph  Import OpenGraph extensions.
   groups     Get lists of groups.
   mark       Mark objects with an asset group tag (Owned, Tier Zero).
   members    Get lists of group members.
+  opengraph  Import OpenGraph extensions.
   queries    Import and export custom queries.
   stats      Get statistics on domains.
   status     Retrieve internal status of the BloodHound server.
@@ -292,7 +292,7 @@ $ bhcli status api-version
 
 ### opengraph
 
-The `opengraph` subcommand allows importing an OpenGraph schema JSON.
+The `opengraph` subcommand allows importing an OpenGraph schema from a file.
 
 ```console
 $ bhcli opengraph ~/schema.json

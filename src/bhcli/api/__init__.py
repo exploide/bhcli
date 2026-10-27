@@ -329,11 +329,11 @@ class Api:
         return self._send("GET", endpoint)
 
 
-    def import_opengraph_extension(self, data):
+    def import_opengraph_extension(self, data, content_type):
         """Import OpenGraph extension."""
 
         endpoint = "/api/v2/extensions"
-        return self._send("PUT", endpoint, data,  "application/json")
+        return self._send("PUT", endpoint, data, content_type)
 
 
     def domains(self, collected=None):

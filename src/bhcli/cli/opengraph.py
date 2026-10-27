@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 import click
@@ -9,13 +8,20 @@ from bhcli.logger import log
 
 
 def import_opengraph_extension_file(filename: Path):
-    """Import extension schema from JSON."""
+    """Import extension schema from file."""
 
-    with open(filename, "r", encoding="UTF-8") as f:
-        jsondata = json.load(f)
+    if filename.lower().endswith(".json"):
+        content_type = "application/json"
+    elif filename.lower().endswith(".zip"):
+        content_type = "application/zip"
+    else:
+        log.warning("%s: file of unsupported type will be ignored", filename)
+        return
+    with open(filename, "rb") as f:
+        schema_data = f.read()
 
     try:
-        result = api.import_opengraph_extension(jsondata)
+        result = api.import_opengraph_extension(schema_data, content_type)
         if not result:
             log.info("successfully imported %s", filename)
         else:
@@ -36,7 +42,7 @@ def import_opengraph_extension_file(filename: Path):
 def opengraph(schema):
     """Import OpenGraph extensions.
 
-    Imports an OpenGraph extension schema.
+    Imports an OpenGraph extension schema from a JSON or ZIP file.
     """
 
     for file in schema:
